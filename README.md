@@ -1,4 +1,4 @@
-![MyReads Project](/src/screenshots/img1)
+![MyReads Project](/src/screenshots/img1.png)
 
 # Udacity: MyReads Project
 
@@ -22,5 +22,5 @@ The Project has the following functionalities:
 - React Router
 - PropTypes
 
-![MyReads Project](/src/screenshots/img2)
+![MyReads Project](/src/screenshots/img2.png)
 
