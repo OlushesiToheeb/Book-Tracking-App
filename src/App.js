@@ -3,6 +3,7 @@ import * as BooksAPI from './BooksAPI'
 import { Route } from 'react-router-dom'
 import './App.css'
 import ListBooks from './listBooks';
+import SearchBooks from './searchBooks';
 
 
 
@@ -58,9 +59,38 @@ class BooksApp extends Component {
     }))  
   }
 
+  searchBooksAPI = (query) => {
+    // Search for books based on query and set state
+    BooksAPI.search(query)
+    .then(books => {
+      if (books.error === 'empty query') {
+        this.setState({
+          searchError: true
+        })
+      } else {
+        this.setState({
+          searchedBooks: books,
+          searchError: false
+        })
+      }
+    })
+    .catch(error => {
+      this.setState({
+        apiError: true
+      })
+    }) 
+  }
+
+  closeSearchPage = () => {
+    this.setState({
+      searchedBooks: []
+    })
+  } 
+
+
   render() {
 
-    const { books, apiError } = this.state;
+    const { books, apiError, searchedBooks, searchError} = this.state;
 
     if (apiError) {
       return ( 
@@ -71,6 +101,17 @@ class BooksApp extends Component {
       <div className="app"> 
         <Route exact path="/" render={() => (
         <ListBooks allBooks={books} bookShelves={bookShelves} onShelfChange={this.shelfChange}/>
+        )}
+        />
+        <Route path="/search" render={() => (
+          <SearchBooks 
+          onSearch={this.searchBooksAPI} 
+          searchedBooks={searchedBooks} 
+          onShelfChange={this.shelfChange}
+          onCloseSearch={this.closeSearchPage}
+          allBooks = {books}
+          searchError = {searchError}
+          />
         )}
         />
       </div>

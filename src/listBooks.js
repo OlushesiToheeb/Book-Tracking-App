@@ -20,7 +20,7 @@ const ListBooks = (props) => {
         </div>
       </div>
       <div className="open-search">
-        <Link to="/search" className="button">Add a book</Link>
+        <Link to="/search" className="button"><button >Add a book</button></Link>
       </div>
     </div>
   )
